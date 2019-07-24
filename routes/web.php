@@ -81,7 +81,7 @@ Route::delete('atletaModalidade/{modalidade_id}/atleta/{atleta_id}', 'AtletaModa
 /**
 ROTA PARA CONTROLE DE ATLETAS EM COMPETICOES
 */
-Route::get('atletaCompeticao/{id}', 'atletaCompeticaoController@index')->name('atletaCompeticao.index');
+Route::get('atletaCompeticao/{id}', 'AtletaCompeticaoController@index')->name('atletaCompeticao.index');
 Route::get('atletaCompeticao/create/{id}', 'AtletaCompeticaoController@create')->name('atletaCompeticao.create');
 Route::post('atletaCompeticao', 'AtletaCompeticaoController@store')->name('atletaCompeticao.store');
 Route::delete('atletaCompeticao/{competicao_id}/atleta/{atleta_id}', 'AtletaCompeticaoController@destroy')->name('atletaCompeticao.destroy');
