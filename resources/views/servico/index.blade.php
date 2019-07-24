@@ -17,7 +17,7 @@
     
     <div class="card-header">
         <div class="card-title">
-            <h1 class="card-title">Servicos</h1>
+            <h1 class="card-title">Serviços</h1>
             <h5 class="card-title text-left">{{$servico->count()}} modalidades de {{$servico->total()}} ({{$servico->firstItem()}} a {{$servico->lastItem()}})  </h5>
         </div>
     </div>
