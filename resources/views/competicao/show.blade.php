@@ -69,8 +69,8 @@
 	<div class="card-footer">
 
 		<a class="btn btn-primary btn-sm" href="{{ route('competicao.index') }}">Voltar</a>
-		<a class="btn btn-success btn-sm" href="{{ route('competicao.edit', $competicao->id) }}">Editar</a>
-		<a class="btn btn-secondary btn-sm" href="{{route('atletaCompeticao.index', $competicao->id) }}">Atletas da Competição</a>
+		<a class="btn btn-success btn-sm" href="{{ route('competicao.edit',$competicao->id) }}">Editar</a>
+		<a class="btn btn-secondary btn-sm" href="{{route('atletaCompeticao.index',$competicao->id) }}">Atletas da Competição</a>
 
 		<form method="post" onsubmit="return confirm('Confirma exclusão do Associado?');" action="{{ route('competicao.destroy', $competicao) }}">
 

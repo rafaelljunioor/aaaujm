@@ -67,7 +67,7 @@
     function quantidadeAssociados()
         {
         //$.getJSON('/public/dadosassociadopormatricula/'+mat, function(data)
-        $.getJSON('/quantidadeAssociados', function(data)
+        $.getJSON('/public/quantidadeAssociados', function(data)
         {
             console.log(data);
 
@@ -84,7 +84,7 @@
     function quantidadeAtletas()
         {
         //$.getJSON('/public/dadosassociadopormatricula/'+mat, function(data)
-        $.getJSON('/quantidadeAtletas', function(data)
+        $.getJSON('/public/quantidadeAtletas', function(data)
         {
             console.log(data);
 
@@ -100,7 +100,7 @@
      function quantidadeProdutos()
         {
         //$.getJSON('/public/dadosassociadopormatricula/'+mat, function(data)
-        $.getJSON('/quantidadeProdutos', function(data)
+        $.getJSON('/public/quantidadeProdutos', function(data)
         {
             console.log(data);
 
@@ -117,7 +117,7 @@
      function preencheDashboard()
         {
         //$.getJSON('/public/dadosassociadopormatricula/'+mat, function(data)
-        $.getJSON('/dashboard', function(data)
+        $.getJSON('/public/dashboard', function(data)
         {
             console.log(data);
 
