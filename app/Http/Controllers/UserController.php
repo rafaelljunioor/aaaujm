@@ -78,7 +78,7 @@ class UserController extends Controller
         if(Auth::check()){
             if(Auth::user()->type == 1){
                 $role = Role::all();
-                $user = User::find($id);
+                $user = User::withTrashed()->find($id);
                 return view('users.show')->with('role', $role)->with('user', $user);
             }else {
                 return redirect()->back();
@@ -99,7 +99,7 @@ class UserController extends Controller
         if(Auth::check()){
             if(Auth::user()->type == 1){
                 $role = Role::all();
-                $user = User::find($id);
+                $user = User::withTrashed()->find($id);
                 return view('users.edit')->with('role', $role)->with('user', $user);
             }else {
                 return redirect()->back();
@@ -172,7 +172,7 @@ class UserController extends Controller
 
     public function forceDelete($id)
     {   
-        $user = User::find($id);
+        $user = User::withTrashed()->find($id);
         $user->forceDelete();
         return redirect()->route('user.index')->with('success', 'Exclusão realizada com sucesso!');
     }
