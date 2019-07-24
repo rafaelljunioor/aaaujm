@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 Use App\Competicao;
 Use App\Atleta;
 use Illuminate\Support\Facades\DB;
+
 class AtletaCompeticaoController extends Controller
 {
    
