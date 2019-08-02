@@ -38,7 +38,7 @@
 						<td>{{$a->id}}</td>
 						<td>{{$a->pessoa->nome}}</td>
 						<td>{{$a->pessoa->matricula}}</td>
-						<td>{{$a->tamanho_uniforme}}</td>
+						<td>{{$a->tamanho->nome}}</td>
 						<td>{{$a->altura}}</td>
 						<td>{{$a->peso}}</td>
 						<td>{{$a->descricao}}</td>

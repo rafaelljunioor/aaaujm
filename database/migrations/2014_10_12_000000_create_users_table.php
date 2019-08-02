@@ -19,11 +19,11 @@ class CreateUsersTable extends Migration
             $table->integer('type')->unsigned();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
-            $table->softDeletes()->default(\DB::raw('CURRENT_TIMESTAMP'));
+            $table->softDeletes()->default('CURRENT_TIMESTAMP');
             $table->string('password');
             $table->rememberToken();
-            $table->timestamp('created_at')->default(\DB::raw('CURRENT_TIMESTAMP'));
-            $table->timestamp('updated_at')->default(\DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
+            $table->timestamp('created_at')->default('CURRENT_TIMESTAMP');
+            $table->timestamp('updated_at')->default('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP');
 
 
            $table->foreign('type')->references('id')->on('roles')->onDelete('cascade');
