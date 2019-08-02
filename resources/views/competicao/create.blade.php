@@ -62,7 +62,7 @@
 
 			  <div class="form-group">
 			  	
-			    <label for="inputDataTermino">Data Termino</label>
+			    <label for="inputDataTermino">Data Término</label>
 			    <input type="date" 
 			    	   class="form-control {{$errors->has('data_termino') ? 'is-invalid' : ''}}" 
 			    	   id="inputDataTermino" 

@@ -31,7 +31,7 @@
 			</div>
 
 			<div class="form-group">
-			    <label for="genero">Genero</label>
+			    <label for="genero">Gênero</label>
 			    <select class="form-control {{$errors->has('nome') ? 'is-invalid' : ''}}" id="genero" name="genero">
 				     <option value="{{ $modalidade->genero }}">{{ $modalidade->genero }}</option>
 				     <option value="F">Feminino</option>

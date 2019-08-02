@@ -17,7 +17,7 @@
 
     <div class="card-header">
         <div class="card-title">
-			<h1>Dados do Servico</h1>
+			<h1>Dados do Usuário</h1>
 		</div>
 	</div>
 
@@ -63,7 +63,6 @@
 
 		<a class="btn btn-primary btn-sm" href="{{ route('user.index') }}">Voltar</a>
 		<a class="btn btn-success btn-sm" href="{{ route('user.edit', $user->id) }}">Editar</a>
-		<a class="btn btn-secondary btn-sm" href="">Recuperar Senha</a>
 
 		<form method="post" onsubmit="return confirm('Se você excluir o usuário ao invés de desativá-lo, todos os dados de venda e registros realizados pelo usuário serão perdidos. Confirma Exclusão do Usuário ?');" action="{{route('user.forceDelete', $user->id)}}">
 

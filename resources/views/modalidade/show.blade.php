@@ -42,7 +42,7 @@
 				</tr>
 
 				<tr>
-					<td>Genero</td>
+					<td>Gênero</td>
 					<td>{{ $modalidade->genero }}</td>
 
 				</tr>

@@ -30,7 +30,7 @@
                     <th>CNPJ</th>
                     <th>Email</th>
                     <th>Telefone</th>
-                    <th>Descricao</th>
+                    <th>Descrição</th>
                     <th>Info</th>
                 </tr>
             </thead>

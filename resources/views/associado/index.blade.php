@@ -59,7 +59,7 @@
         <tr>
             <th>Id do associado</th>
             <th>Nome</th>
-            <th>Matricula</th>
+            <th>Matrícula</th>
             <th>Telefone</th>
             <th>Curso</th>
             <th>Email</th>

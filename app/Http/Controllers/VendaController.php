@@ -142,8 +142,8 @@ class VendaController extends Controller
                 'servicos.*'  => 'distinct|required|integer',
                 'valor_unitario_servicos'   => 'required|array',
                 'valor_unitario_servicos.*'  => 'required|gt:0',
-                'preco_total_servicos'   => 'required|array',
-                'preco_total_servicos.*'  => 'required|gt:0',
+                //'preco_total_servicos'   => 'required|array',
+                //'preco_total_servicos.*'  => 'required|gt:0',
 
             ], $mensagens);
 
@@ -196,7 +196,6 @@ class VendaController extends Controller
 
             //validação do form e venda dos servicos. 
             if ($request->servicos!=null) {
-
                 for ($i = 0; $i < count($request->servicos); $i++) 
                 { 
 
@@ -205,8 +204,7 @@ class VendaController extends Controller
                     $pedido->venda_id = $venda->getKey();
                     $pedido->quantidade= 1;
                     $pedido->valor_unitario = $request->valor_unitario_servicos[$i];
-                    $pedido->valor_total_item = $request->preco_total_servicos[$i];
-
+                    $pedido->valor_total_item = $request->valor_unitario_servicos[$i];
                     $pedido->save();
 
                     $total += 1*$request->valor_unitario_servicos[$i];         

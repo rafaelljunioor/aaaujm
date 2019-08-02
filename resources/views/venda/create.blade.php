@@ -112,18 +112,20 @@
             <table class="table table-condensed table-hover table-striped table-responsive-sm table-responsive-md" id="tabela-servicos">
                 <thead>
                     <tr>
-                        <th>Serviço</th>
+                        <!--<th>Serviço</th>
                         <th>Valor Unitário</th>
                         <th>Valor Total</th>
-                        <th>Remover</th>
+                        <th>Remover</th>-->
+                        <th class="text-center">Descrição</th>
+                        <th class="text-center">Valor</th>
                     </tr>
                 </thead>
                 <tbody>
                 </tbody>
                 <tfoot>
                     <tr>
-                        <td colspan="5" style="text-align: left;">
-                            <button class="btn btn-primary btn-sm " onclick="adicionarLinhaServico()" type="button"><i class="fas fa-plus"></i></button>
+                        <td colspan="2" style="text-align: left;">
+                            <button class="btn btn-primary btn-sm " onclick="adicionarLinhaServico2()" type="button"><i class="fas fa-plus"></i></button>
                         </td>
                     </tr>
                 </tfoot>
@@ -229,6 +231,26 @@
         
     };
 
+    remove2 = function(handler){
+
+        //$(handler).parent().parent().remove();
+        var linha = handler.parentNode.parentNode.rowIndex;
+        var tr = $(handler).closest('tr');
+        var i;
+       // document.getElementById("tabela-produtos").deleteRow(linha);
+
+       tr.fadeOut(400, function() {
+            //var i;
+            //for(i=tr.rowIndex;i<)
+            for(i=linha; i>=linha-4;i--){
+
+            document.getElementById("tabela-servicos").deleteRow(i);
+        }
+           
+        });
+        
+    };
+
    adicionarLinhaProduto2 = function(handler) {
 
 
@@ -290,9 +312,36 @@
     };
 
 
+ adicionarLinhaServico2 = function() {
+
+     var cols = '<tr class="text-center table-secondary"><td colspan="2" style="text-align: center;">Novo Serviço</td><tr/>';
+
+        cols += '<tr><td><label>Servico</label></td> <td><select class="form-control product" id="nome" name="servicos[]"><option value="">Selecione:</option>@foreach($servicos as $s)<option value="{{ $s->id }}"> {{ $s->nome }}</option>@endforeach</select></td></tr>';
+
+        $("#tabela-servicos").append(cols);
+
+        cols = '<tr><td><label>Valor Unitário</label></td><td><input id="valor_unitario" type="number" step= "0.01" class="form-control preco" name="valor_unitario_servicos[]"></td></tr>';
+         
+         $("#tabela-servicos").append(cols);
+
+         //cols = '<tr><td><label>Preco Total</label></td><td class="total"><input readonly id="valor_total" type="number" class="form-control" name="preco_total[]" step= "0.01"></td></tr>';
+
+         //$("#tabela-produtos").append(cols);
+
+        cols = '<tr><td><label>Ação</label></td>';
+        cols += '<td><button class="btn btn-danger btn-sm excluir" onclick="remove2(this)"  type="button">Remover</</button></td></tr>';
+        cols += '';
 
 
-    adicionarLinhaServico = function() {
+        $("#tabela-servicos").append(cols);
+
+        
+
+        return false;
+    };
+
+
+    /*adicionarLinhaServico = function() {
 
         var newRow = $("<tr>");
         var cols = "";
@@ -321,7 +370,7 @@
         });
 
         return false;
-    };
+    };*/
 
 
     /*adicionarLinhaProduto = function() {

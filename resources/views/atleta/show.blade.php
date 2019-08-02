@@ -50,7 +50,7 @@
 				</tr>
 
 				<tr>
-					<td>Matricula</td>
+					<td>Matrícula</td>
 					<td>{{ $atleta->pessoa->matricula }}</td>
 
 				</tr>
@@ -102,12 +102,12 @@
 
 		<br>
 		
-		<h5 class="text-title">Competicoes</h5>
+		<h5 class="text-title">Competições</h5>
 		<table class="table table-condensed table-hover table-striped table-responsive-sm table-responsive-md">
 
 			<thead>
 				<th> Nome</th>
-				<th> Data da Competicao </th>
+				<th> Data da Competição </th>
 
 			</thead>
 		
@@ -130,7 +130,7 @@
 
 			<thead>
 				<th> Nome</th>
-				<th> genero </th>
+				<th> Gênero </th>
 
 			</thead>
 		

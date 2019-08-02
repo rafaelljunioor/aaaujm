@@ -61,7 +61,7 @@
 				</tr>
 
 				<tr>
-					<td>Descricao</td>
+					<td>Descrição</td>
 					 <td>{{$fornecedor->descricao}}</td>
 
 				</tr>

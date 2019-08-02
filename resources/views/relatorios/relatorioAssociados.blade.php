@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Relatorio de Associados</title>
+	<title>Relatorio de Atletas</title>
  <style type="text/css">
  	
 table {
@@ -26,7 +26,7 @@ td{
 </head>
 <body>
 
-    <h1>Atletas</h1>
+    <h1>Associados</h1>
 
 
     

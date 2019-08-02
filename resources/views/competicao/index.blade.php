@@ -28,11 +28,11 @@
 
             <thead>
                 <tr>
-                    <th>Id da competicao</th>
+                    <th>Id da competição</th>
                     <th>Nome</th>
                     <th>local</th>
                     <th>Data Inicio</th>
-                    <th>Data Termino</th>
+                    <th>Data Término</th>
                     <th>Info</th>
                 </tr>
             </thead>

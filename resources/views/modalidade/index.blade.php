@@ -32,7 +32,7 @@
                     <tr>
                         <th>Id da modalidade</th>
                         <th>Nome</th>
-                        <th>Genero</th>
+                        <th>Gênero</th>
                         <th>Info</th>
                     </tr>
                 </thead>
