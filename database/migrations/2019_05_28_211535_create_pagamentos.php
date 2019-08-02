@@ -18,7 +18,7 @@ class CreatePagamentos extends Migration
             $table->string('nome',191);
             //$table->timestamp('created_at')->default(\DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(\DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
-            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('created_at')->nullable();
             $table->engine = 'InnoDB';
            // $table->timestamps();
             

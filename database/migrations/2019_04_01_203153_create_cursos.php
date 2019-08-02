@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-
+use Carbon\Carbon;
 class CreateCursos extends Migration
 {
     /**
@@ -18,7 +18,7 @@ class CreateCursos extends Migration
             $table->string('nome');
             //$table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
-           $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('created_at')->nullable();
             $table->engine = 'InnoDB';
         });
     }

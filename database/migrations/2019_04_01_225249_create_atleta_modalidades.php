@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
+
 class CreateAtletaModalidades extends Migration
 {
     /**
@@ -24,7 +25,7 @@ class CreateAtletaModalidades extends Migration
             $table->primary(['atleta_id','modalidade_id']);
             //$table->timestamp('created_at')->default(\DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(\DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
-            $table->timestamp('created_at')->useCurrent();
+            
             $table->engine = 'InnoDB';
            // $table->timestamps();
         });

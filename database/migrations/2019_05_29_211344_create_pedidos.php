@@ -30,7 +30,7 @@ class CreatePedidos extends Migration
 
             //$table->timestamp('created_at')->default(\DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->nullable()->default(\DB::raw('NULL on update CURRENT_TIMESTAMP'));
-            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('created_at')->nullable();
             $table->engine = 'InnoDB';
             //$table->timestamps();
         });

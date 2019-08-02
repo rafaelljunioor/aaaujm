@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
+
 class CreateAssociados extends Migration
 {
     /**
@@ -22,7 +23,7 @@ class CreateAssociados extends Migration
             $table->foreign('pessoa_id')->references('id')->on('pessoas')->onDelete('cascade');;
             //$table->timestamp('created_at')->default(\DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(\DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
-            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('created_at')->nullable();
             $table->engine = 'InnoDB';
             //$table->timestamps();
         });
