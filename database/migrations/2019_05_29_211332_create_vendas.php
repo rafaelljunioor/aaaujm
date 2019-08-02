@@ -16,7 +16,7 @@ class CreateVendas extends Migration
         Schema::create('vendas', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('associado_id')->nullable()->unsigned();
-            $table->bigInteger('user_id')->unsigned()->default(1);
+            $table->integer('user_id')->unsigned()->default(1);
             $table->integer('pagamento_id')->unsigned();
             $table->integer('status_id')->unsigned()->default(2);
             $table->decimal('valor_total_venda',8, 2)->default(0);
