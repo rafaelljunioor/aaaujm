@@ -18,7 +18,7 @@ class CreateModalidades extends Migration
             $table->string('genero',100);
             $table->string('nome',191);
            // $table->timestamps();
-            $table->timestamp('created_at')->default(\DB::raw('CURRENT_TIMESTAMP'));
+            //$table->timestamp('created_at')->default(\DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(\DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
         });
     }

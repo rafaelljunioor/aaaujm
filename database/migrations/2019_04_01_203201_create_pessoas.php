@@ -23,7 +23,7 @@ class CreatePessoas extends Migration
             $table->integer('curso_id')->unsigned();
             $table->foreign('curso_id')->references('id')->on('cursos')->onDelete('cascade');
             //$table->timestamps();
-            $table->timestamp('created_at')->default(\DB::raw('CURRENT_TIMESTAMP'));
+            //$table->timestamp('created_at')->default(\DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(\DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
         });
     }
