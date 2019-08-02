@@ -14,7 +14,7 @@ class DatabaseSeeder extends Seeder
         // $this->call(UsersTableSeeder::class);
         $this->call(TamanhosSeeder::class);
         $this->call(CursosSeeder::class);
-        $this->call(PessoasSeeder::class);
+        /*$this->call(PessoasSeeder::class);
         $this->call(AtletasSeeder::class);
         $this->call(CompeticoesSeeder::class);
         $this->call(ModalidadesSeeder::class);
@@ -26,9 +26,11 @@ class DatabaseSeeder extends Seeder
         $this->call(ServicosSeeder::class);
         $this->call(PagamentosSeeder::class);
         $this->call(ParcelasSeeder::class);
-        $this->call(StatusSeeder::class);
+        */
         $this->call(RolesSeeder::class);
-        $this->call(UsersSeeder::class);
+        
+        $this->call(StatusSeeder::class);
+        //$this->call(UsersSeeder::class);
         //$this->call(VendasSeeder::class);
         //$this->call(PedidosSeeder::class);
     }
