@@ -16,8 +16,9 @@ class CreateCursos extends Migration
         Schema::create('cursos', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nome');
-            $table->timestamp('created_at')->useCurrent();
-            $table->timestamp('updated_at')->useCurrent();
+            //$table->timestamp('created_at')->useCurrent();
+            //$table->timestamp('updated_at')->useCurrent();
+            $table->timestamps();
         });
     }
 
