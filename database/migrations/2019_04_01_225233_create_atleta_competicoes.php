@@ -25,7 +25,7 @@ class CreateAtletaCompeticoes extends Migration
             $table->primary(['atleta_id','competicao_id']);
             //$table->timestamp('created_at')->default(\DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(\DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
-            $table->timestamp('created_at')->nullable();
+            $table->timestamp('created_at')->useCurrent();
 
             $table->engine = 'InnoDB';
             //$table->timestamps();
