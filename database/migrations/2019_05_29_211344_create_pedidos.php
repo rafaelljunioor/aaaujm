@@ -28,9 +28,9 @@ class CreatePedidos extends Migration
             $table->foreign('produto_id')->references('id')->on('produtos')->onDelete('cascade');
             $table->foreign('servico_id')->references('id')->on('servicos')->onDelete('cascade');
 
-            /*$table->timestamp('created_at')->default(\DB::raw('CURRENT_TIMESTAMP'));
-            $table->timestamp('updated_at')->nullable()->default(\DB::raw('NULL on update CURRENT_TIMESTAMP'));*/
-            $table->timestamps();
+            $table->timestamp('created_at')->default(\DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('updated_at')->nullable()->default(\DB::raw('NULL on update CURRENT_TIMESTAMP'));
+            //$table->timestamps();
         });
     }
 
