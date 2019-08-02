@@ -18,6 +18,7 @@ class CreateCursos extends Migration
             $table->string('nome');
             //$table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
+            $table->timestamp('created_at')->nullable();
         });
     }
 
