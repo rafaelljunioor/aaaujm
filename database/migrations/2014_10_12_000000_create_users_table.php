@@ -19,7 +19,7 @@ class CreateUsersTable extends Migration
             $table->integer('type')->unsigned();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
-            $table->softDeletes()->default('CURRENT_TIMESTAMP');
+            $table->softDeletes();
             $table->string('password');
             $table->rememberToken();
             $table->timestamp('created_at')->default('CURRENT_TIMESTAMP');
