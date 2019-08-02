@@ -22,8 +22,8 @@ class CreateUsersTable extends Migration
             $table->softDeletes();
             $table->string('password');
             $table->rememberToken();
-            $table->timestamp('created_at')->default('CURRENT_TIMESTAMP');
-            $table->timestamp('updated_at')->default('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP');
+            $table->timestamps();
+            //$table->timestamp('updated_at')->default('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP');
 
 
            $table->foreign('type')->references('id')->on('roles')->onDelete('cascade');
