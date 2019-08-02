@@ -66,7 +66,14 @@ class UserController extends Controller
     {
          if(Auth::check()){
             if(Auth::user()->type == 1){
-                User::create($request->all());
+                $user = New User();
+                
+                $user->name = $request->name;
+                $user->type = $request->type;
+                $user->email = $request->email;
+                $user->password = bcrypt($request->password);
+                $user->save();
+
                 $request->session()->flash('success', 'Usuário Inserido');
 
                 return redirect()->route('user.index');
