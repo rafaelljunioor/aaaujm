@@ -20,8 +20,9 @@ class CreateParcelas extends Migration
             $table->decimal('valor_parcela',8, 2);
             $table->date('data_pagamento')->default('2019-05-31');
             $table->string('status',191)->default('PENDENTE');
-           $table->timestamp('created_at')->default(\DB::raw('CURRENT_TIMESTAMP'));
-           $table->timestamp('updated_at')->default(\DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
+           /*$table->timestamp('created_at')->default(\DB::raw('CURRENT_TIMESTAMP'));
+           $table->timestamp('updated_at')->default(\DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));*/
+           $table->timestamps();
         });
     }
 

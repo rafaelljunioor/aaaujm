@@ -19,8 +19,9 @@ class CreateCompeticoes extends Migration
             $table->string('local',100);
             $table->date('data_inicio');
             $table->date('data_termino');
-            $table->timestamp('created_at')->default(\DB::raw('CURRENT_TIMESTAMP'));
-            $table->timestamp('updated_at')->default(\DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
+            /*$table->timestamp('created_at')->default(\DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('updated_at')->default(\DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));*/
+            $table->timestamps();
         });
     }
 

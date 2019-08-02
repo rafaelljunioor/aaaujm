@@ -22,8 +22,9 @@ class CreatePessoas extends Migration
             $table->softDeletes();
             $table->integer('curso_id')->unsigned();
             $table->foreign('curso_id')->references('id')->on('cursos')->onDelete('cascade');
-            $table->timestamp('created_at')->default(\DB::raw('CURRENT_TIMESTAMP'));
-           $table->timestamp('updated_at')->default(\DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
+            $table->timestamps();
+            /*$table->timestamp('created_at')->default(\DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('updated_at')->default(\DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));*/
         });
     }
 
