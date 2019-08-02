@@ -25,6 +25,7 @@ class CreateFornecedores extends Migration
             //$table->timestamp('created_at')->default(\DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(\DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
             $table->timestamp('created_at')->nullable();
+            $table->engine = 'InnoDB';
             //$table->timestamps();
 
         });

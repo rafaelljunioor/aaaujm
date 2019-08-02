@@ -24,9 +24,9 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
             $table->timestamp('updated_at')->default(\DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
             $table->timestamp('created_at')->nullable();
-           
-
             $table->foreign('type')->references('id')->on('roles')->onDelete('cascade');
+
+            $table->engine = 'InnoDB';
         });
     }
 
