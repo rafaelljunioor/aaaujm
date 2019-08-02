@@ -64,7 +64,19 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+         if(Auth::check()){
+            if(Auth::user()->type == 1){
+                User::create($request->all());
+                $request->session()->flash('success', 'Usuário Inserido');
+
+                return redirect()->route('user.index');
+            }else {
+                return redirect()->back();
+            }
+        }else {
+            return redirect()->route('login');
+        }
+
     }
 
     /**
