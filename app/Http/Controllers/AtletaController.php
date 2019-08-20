@@ -30,10 +30,6 @@ class AtletaController extends Controller
 
          $pessoas = DB::table('pessoas')->where('matricula',$mat)->get();
          return $pessoas->toJson();
-
-         Log::info($pessoas);
-
-         return $pessoas->toJson();
     }
 
     public function quantidadeJson(){

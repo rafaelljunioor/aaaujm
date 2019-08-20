@@ -2,7 +2,6 @@
 
 @section('conteudo')
 
-
 <div class="card-header">
 	
 	<div class="card-title"> 
@@ -29,7 +28,7 @@
 			  				   aria-describedby="basic-addon2">
 					    
 					     <div class="input-group-append">
-			    				<button class="btn btn-outline-secondary btn-sm" onClick='pesquisaProduto(inputmatricula.value)' type="button">Pesquisar</button>
+			    				<button class="btn btn-outline-secondary btn-sm" onClick='pesquisaPessoa(inputmatricula.value)' type="button">Pesquisar</button>
 			  			</div>
 			  		@if($errors->has('matricula'))
 	  					<div class="invalid-feedback">
@@ -147,7 +146,7 @@
 	
 	
 
-	function pesquisaProduto(mat)
+	function pesquisaPessoa(mat)
 	{
 		$.getJSON('/public/dadosassociadopormatricula/'+mat, function(data)
 		//$.getJSON('/dadosassociadopormatricula/'+mat, function(data)
@@ -155,7 +154,7 @@
 			console.log(data);
 
 				
-				if (data.lenght != 0) 
+				if (data.length != 0) 
 				{
 					$('#inputmatricula').val(data[0].matricula);
 		            $('#inputemail').val(data[0].email);
@@ -167,9 +166,9 @@
 		            $("#inputtelefone").prop("disabled", true); 
 		            $("#cursos").prop("disabled", true); 
 		           
-		            alert("Atleta Encontrado!");
+		            alert("Associado Encontrado!");
 				}else{
-					alert("Atleta não encontrado!");
+					alert("Associado não encontrado!");
 				}
 				
 		})

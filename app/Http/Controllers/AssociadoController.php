@@ -28,7 +28,7 @@ class AssociadoController extends Controller
 	public function indexJson($mat){
 
         $pessoas = DB::table('pessoas')->where('matricula',$mat)->get();
-        return json_encode($pessoas);
+        return $pessoas->toJson();
     }
 
     public function quantidadeJson(){

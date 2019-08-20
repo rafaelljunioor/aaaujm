@@ -82,7 +82,7 @@ class AtletaCompeticaoController extends Controller
 
         DB::table('atleta_competicoes')
                 ->insert(['competicao_id'=>$request->competicao_id,
-                          'atleta_id' => $request->atleta_id]
+                          'atleta_id' => $request->atleta_id]);
         
         return redirect()->route('atletaCompeticao.index',$request->competicao_id);
     }

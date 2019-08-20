@@ -210,7 +210,7 @@
 			console.log(data);
 
 				
-				if (data.lenght != 0) 
+				if (data.length != 0) 
 				{
 					$('#inputmatricula').val(data[0].matricula);
 		            $('#inputemail').val(data[0].email);
@@ -230,8 +230,6 @@
 				}else{
 					alert("Atleta não encontrado!");
 				}
-				
-				
 			
 		})
 	}
