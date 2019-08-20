@@ -55,14 +55,25 @@
                 @endif
             </div>
             <div class="form-group">
-                <label for="inputDesconto">Desconto: (Valor em %)</label>
-                <input type="number" class="form-control {{$errors->has('desconto') ? 'is-invalid' : ''}}" id="inputDesconto" placeholder="Valor de Desconto" name="desconto"> 
+                <label for="inputDesconto">Desconto:</label>
+                <!--<input type="number" class="form-control {{$errors->has('desconto') ? 'is-invalid' : ''}}" id="inputDesconto" placeholder="Valor de Desconto" name="desconto">-->
+                <select class="form-control {{$errors->has('desconto') ? 'is-invalid' : ''}}" id="descontos" name="desconto">
+                    <option value="">Selecione:</option>
+                     @for ($i = 0; $i <= 100; $i++)
+                         <option value="{{ $i }}"> {{ $i }} %
+                    </option>
+                    @endfor
+                    
+                </select>
                 @if($errors->has('desconto'))
                 <div class="invalid-feedback">
                     {{$errors->first('desconto')}}
                 </div>
                 @endif
             </div>
+
+            
+           
             <div class="form-group">
                 <label for="inputParcelas">Quantidade de Parcelas</label>
                 <input type="number" class="form-control {{$errors->has('parcelas') ? 'is-invalid' : ''}}" id="inputParcelas" placeholder="Numero de Parcelas" name="parcelas"> 
@@ -109,7 +120,7 @@
                     </tr>
                 </tfoot>
             </table>
-            <table class="table table-condensed table-hover table-striped table-responsive-sm table-responsive-md" id="tabela-servicos">
+            <table class="table table-condensed table-hover" id="tabela-servicos">
                 <thead>
                     <tr>
                         <!--<th>Serviço</th>
@@ -256,7 +267,7 @@
 
        var cols = '<tr class="text-center table-secondary"><td colspan="2" style="text-align: center;">Novo Produto</td><tr/>';
 
-        cols += '<tr><td><label>Produto</label></td> <td><select class="form-control product" id="tamanho" name="produtos[]"><option value="">Selecione:</option>@foreach($produtos as $p)<option value="{{ $p->id }}"> {{ $p->nome }}</option>@endforeach</select></td></tr>';
+        cols += '<tr><td><label>Produto</label></td> <td><select class="form-control product" id="tamanho" name="produtos[]"><option value="">Selecione:</option>@foreach($produtos as $p)<option value="{{ $p->id }}"> {{ $p->nome }} - R$ {{$p->preco_sugerido}}</option>@endforeach</select></td></tr>';
 
         $("#tabela-produtos").append(cols);
 
@@ -316,7 +327,7 @@
 
      var cols = '<tr class="text-center table-secondary"><td colspan="2" style="text-align: center;">Novo Serviço</td><tr/>';
 
-        cols += '<tr><td><label>Servico</label></td> <td><select class="form-control product" id="nome" name="servicos[]"><option value="">Selecione:</option>@foreach($servicos as $s)<option value="{{ $s->id }}"> {{ $s->nome }}</option>@endforeach</select></td></tr>';
+        cols += '<tr><td><label>Servico</label></td> <td><select class="form-control product" id="nome" name="servicos[]"><option value="">Selecione:</option>@foreach($servicos as $s)<option value="{{ $s->id }}"> {{ $s->nome }} - R$ {{$s->preco_sugerido}}</option>@endforeach</select></td></tr>';
 
         $("#tabela-servicos").append(cols);
 
@@ -410,5 +421,7 @@
 
         return false;
     };*/
+
+    
 </script>
 @endsection('javascript')

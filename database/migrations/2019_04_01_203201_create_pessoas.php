@@ -19,13 +19,13 @@ class CreatePessoas extends Migration
             $table->string('nome',191);
             $table->string('email',191)->unique();
             $table->string('telefone',100);
-            $table->softDeletes();
+            //$table->softDeletes();
             $table->integer('curso_id')->unsigned();
             $table->foreign('curso_id')->references('id')->on('cursos')->onDelete('cascade');
             //$table->timestamps();
             //$table->timestamp('created_at')->default(\DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(\DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
-           $table->timestamp('created_at')->nullable();
+            $table->timestamp('created_at')->nullable();
 
             $table->engine = 'InnoDB';
         });

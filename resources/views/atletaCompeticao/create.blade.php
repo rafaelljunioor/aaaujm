@@ -17,7 +17,7 @@
 
 			<div class="form-group">
 			    <label for="cursos">Atleta</label>
-			    <select class="form-control" id="cursos" name="atleta_id">
+			    <select class="form-control {{$errors->has('atleta_id') ? 'is-invalid' : ''}}" id="cursos" name="atleta_id">
 			    
 	        	
 			        	@foreach($atleta as $a)
@@ -29,6 +29,12 @@
 			        		@endforeach
 			        	@endforeach
 			    </select>
+			    
+			    @if($errors->has('atleta_id'))
+                <div class="invalid-feedback">
+                    {{$errors->first('atleta_id')}}
+                </div>
+                @endif
 			</div>
 
 			 <!-- <div class="form-group" ">

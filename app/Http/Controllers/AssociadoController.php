@@ -308,17 +308,17 @@ class AssociadoController extends Controller
         $associado->delete();
         return redirect()->route('associado.index')->with('success', 'Exclusão realizada com sucesso!');
         
-        //$atleta = DB::table('atletas')->where('pessoa_id', $associado->pessoa_id)->get();
+        /*$atleta = DB::table('atletas')->where('pessoa_id', $associado->pessoa_id)->get();
 
 
-        /*if($atleta->count() == 0){ // se nao for atleta excluir tb a pessoa
-           //$associado->pessoa()->delete();
-            $associado->delete();
+        if($atleta->count() == 0){ // se nao for atleta excluir tb a pessoa
+            //$associado->pessoa()->forceDelete();
+            $associado->forceDelete();
 
             return redirect()->route('associado.index')->with('success', 'Exclusão realizada com sucesso!');
         }else if($atleta->count() > 0){
 
-            $associado->delete();
+            $associado->forceDelete();
             return redirect()->route('associado.index')->with('success', 'Exclusão realizada com sucesso!');
         }else{
 

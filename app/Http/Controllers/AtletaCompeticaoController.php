@@ -76,46 +76,15 @@ class AtletaCompeticaoController extends Controller
      */
     public function store(Request $request)
     {
+        $mensagens = ['atleta_id.required' => 'Selecionar um atleta é obrigatório',];
+
+        $request->validate(['atleta_id'=>'required'], $mensagens);
+
         DB::table('atleta_competicoes')
-        ->insert(
-        ['competicao_id'=>$request->competicao_id,
-        'atleta_id' => $request->atleta_id]
-        /*'descricao'=> $request->descricao]*/);
+                ->insert(['competicao_id'=>$request->competicao_id,
+                          'atleta_id' => $request->atleta_id]
+        
         return redirect()->route('atletaCompeticao.index',$request->competicao_id);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
     }
 
     /**

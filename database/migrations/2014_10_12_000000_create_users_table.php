@@ -19,7 +19,8 @@ class CreateUsersTable extends Migration
             $table->integer('type')->unsigned();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
-            $table->softDeletes()->default('0000-00-00 00:00:00');
+            //$table->softDeletes()->default(now());
+            $table->softDeletes()->nullable();
             $table->string('password');
             $table->rememberToken();
             $table->timestamp('updated_at')->default(\DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));

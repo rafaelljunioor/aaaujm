@@ -85,6 +85,7 @@ class VendaController extends Controller
         $mensagens = ['pagamento.required' => 'O campo :attribute é obrigatório',
         'desconto.required' => 'O campo :attribute é obrigatório',
         'desconto.between' => 'O :attribute é de 0% a 100%',
+        'desconto.integer' => 'O :attribute deve ser um valor inteiro',
         'data_pagamento.required' => 'O campo :attribute é obrigatório',
         'parcelas.required' => 'O campo :attribute é obrigatório',
         'parcelas.min' => 'Numero minimo de parcelas é 1',

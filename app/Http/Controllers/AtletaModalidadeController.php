@@ -80,6 +80,10 @@ class AtletaModalidadeController extends Controller
      */
     public function store(Request $request)
     {
+    	 $mensagens = ['atleta_id.required' => 'Selecionar um atleta é obrigatório',];
+
+		 $request->validate(['atleta_id'=>'required'], $mensagens);
+
         DB::table('atleta_modalidades')
         ->insert(
         ['modalidade_id'=>$request->modalidade_id,
