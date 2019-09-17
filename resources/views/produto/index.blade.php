@@ -53,7 +53,12 @@
                     @else
                         <td>Não Possui</td>
                     @endif
-                    <td>{{$p->fornecedor->nome}}</td>
+
+                    @if(isset($p->fornecedor->nome))
+                        <td>{{$p->fornecedor->nome}}</td>
+                    @else
+                        <td>Não Possui</td>
+                    @endif
 
                     @if($p->deleted_at != NULL)
                         <td class="text text-danger"> Desativado</td>
