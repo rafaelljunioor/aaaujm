@@ -26,7 +26,7 @@ class FornecedorController extends Controller
     {
         if(Auth::check()){
             if(Auth::user()->type == 2 || Auth::user()->type == 1){
-                $fornecedores = Fornecedor::paginate(10);
+                $fornecedores = Fornecedor::withTrashed()->paginate(10);
                 return view('fornecedor.index')->with('fornecedores', $fornecedores);
             }else{
                 return redirect()->back();
@@ -78,7 +78,7 @@ class FornecedorController extends Controller
     {
         if(Auth::check()){
             if(Auth::user()->type == 2 || Auth::user()->type == 1){
-                $fornecedor = Fornecedor::find($id);
+                $fornecedor = Fornecedor::withTrashed()->find($id);
                 return view('fornecedor.show')->with('fornecedor', $fornecedor);
             }else{
                 return redirect()->back();
@@ -98,7 +98,7 @@ class FornecedorController extends Controller
     {
         if(Auth::check()){
             if(Auth::user()->type == 2 || Auth::user()->type == 1){
-                $fornecedor = Fornecedor::find($id);
+                $fornecedor = Fornecedor::withTrashed()->find($id);
                 return view('fornecedor.edit')->with('fornecedor', $fornecedor);
             }else{
                 return redirect()->back();
@@ -133,6 +133,15 @@ class FornecedorController extends Controller
     {
         $fornecedor->delete();
         session()->flash('success', 'Fornecedor deletado com sucesso!');
+        return redirect()->route('fornecedor.index');
+    }
+
+    public function restore($id)
+    {  
+
+        Fornecedor::onlyTrashed()->where('id', $id)->restore();
+        session()->flash('success', 'Fornecedor ativado com sucesso!');
+
         return redirect()->route('fornecedor.index');
     }
 }

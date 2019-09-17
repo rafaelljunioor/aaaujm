@@ -43,6 +43,7 @@ Route::resource('modalidade', 'ModalidadeController');
 ROTAS FORNECEDOR
 */
 Route::resource('fornecedor','FornecedorController');
+Route::get('fornecedor/restore/{id}', 'FornecedorController@restore')->name('fornecedor.restore');
 
 /**
 ROTAS VENDA

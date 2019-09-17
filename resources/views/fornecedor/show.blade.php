@@ -74,6 +74,7 @@
 	<div class="card-footer">
 		<a class="btn btn-primary btn-sm" href="{{ route('fornecedor.index') }}">Voltar</a>
 		<a class="btn btn-success btn-sm" href="{{ route('fornecedor.edit', $fornecedor->id) }}">Editar</a>
+		<a class="btn btn-secondary btn-sm" href="{{ route('fornecedor.restore', $fornecedor->id) }}">Ativar</a>
 		
 
 		<form method="post" onsubmit="return confirm('Confirma exclusão do Fornecedor?');" action="{{ route('fornecedor.destroy', $fornecedor) }}">

@@ -31,6 +31,7 @@
                     <th>Email</th>
                     <th>Telefone</th>
                     <th>Descrição</th>
+                    <th>Status</th>
                     <th>Info</th>
                 </tr>
             </thead>
@@ -46,6 +47,11 @@
                     <td>{{$f->email}}</td>
                     <td>{{$f->telefone}}</td>
                     <td>{{$f->descricao}}</td>
+                    @if($f->deleted_at != NULL)
+                        <td class="text text-danger"> Desativado</td>
+                    @else
+                        <td class="text text-success"> Ativado</td>
+                    @endif
                     <td ><a href="{{route('fornecedor.show', $f->id )}}" class="btn btn-info btn-sm">Info</a></td>
                 </tr>
             @endforeach
