@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Pessoa;
 use App\Associado;
+use App\Venda;
 use App\Curso;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -64,7 +65,7 @@ class AssociadoController extends Controller
         if(Auth::check()){
             $associado = Associado::withTrashed()->whereDate('data_termino','<=',Carbon::now())->paginate(15);
 
-            return view('associado.indexDebito')->with('associado', $associado);
+            return view('associado.indexDebito')->with('associado', $associado)->with('now', Carbon::now());
         }else{
             return redirect()->route('login');
         }    
@@ -334,5 +335,31 @@ class AssociadoController extends Controller
         session()->flash('success', 'Produto ativado com sucesso!');
 
         return redirect()->route('associado.index');
+    }
+
+    public function forceDelete($id)
+    {   
+        $associado = Associado::withTrashed()->find($id);
+        /*$associado->forceDelete();
+        return redirect()->route('associado.index')->with('success', 'Exclusão realizada com sucesso!');*/
+
+        DB::update('update vendas set associado_id = null where associado_id = '.$id.'');
+
+        $atleta = DB::table('atletas')->where('pessoa_id', $associado->pessoa_id)->get();
+
+
+        if($atleta->count() == 0){ // se nao for atleta excluir tb a pessoa
+            $associado->pessoa()->forceDelete();
+            $associado->forceDelete();
+
+            return redirect()->route('associado.index')->with('success', 'Exclusão realizada com sucesso!');
+        }else if($atleta->count() > 0){
+
+            $associado->forceDelete();
+            return redirect()->route('associado.index')->with('success', 'Exclusão realizada com sucesso!');
+        }else{
+
+            return redirect()->route('associado.index')->with('error', 'Problema Durante a Exclusão do Atleta');
+        }
     }
 }

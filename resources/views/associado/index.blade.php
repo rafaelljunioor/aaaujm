@@ -54,7 +54,7 @@
           </div>
 
     </form>
-    <table class="table table-condensed table-hover table-striped table-responsive-sm table-responsive-md">
+    <table class="table table-condensed table-hover table-striped table-responsive">
 
         <tr>
             <th>Id do associado</th>
@@ -66,6 +66,7 @@
             <th>Data Associação</th>
             <th>Data Validade</th>
             <th>Status</th>
+            <th>Ativar/Desativar</th>
             <th>Info</th>
             
 
@@ -86,11 +87,23 @@
                     @else
                         <td class="text-success">{{ date( 'd/m/Y' , strtotime($a->data_termino))}}</td>
                     @endif
+
                     @if($a->deleted_at != NULL)
                         <td class="text text-danger"> Desativado</td>
                     @else
                         <td class="text text-success"> Ativado</td>
                     @endif
+
+                    @if($a->deleted_at == NULL)
+                        <td><form method="post" onsubmit="return confirm('Desativar Associado?');" action="{{ route('associado.destroy', $a) }}">
+                            @csrf
+                            @method('DELETE')
+                            <button class="btn btn-danger btn-sm" type="submit">Desativar</button>
+                        </form></td>
+                    @else
+                       <td> <a class="btn btn-success btn-sm" href="{{ route('associado.restore', $a->id) }}">Ativar</a></td>
+                    @endif
+
                     <td ><a class="btn btn-info btn-sm" href="{{route('associado.show', $a->id)}}">Info</a></td>  
                 </tr>
             @endif

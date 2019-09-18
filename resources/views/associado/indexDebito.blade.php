@@ -39,19 +39,20 @@
             </div>
         </form>
 
-        <table class="table table-condensed table-hover table-striped table-responsive-sm table-responsive-md">
+        <table class="table table-condensed table-hover table-striped table-responsive table-responsive-sm table-responsive-md">
 
             <tr>
                 <th>Id do associado</th>
                 <th>Nome</th>
-                <th>Matricula</th>
+                <th>Matrícula</th>
                 <th>Telefone</th>
                 <th>Curso</th>
                 <th>Email</th>
                 <th>Data Associação</th>
                 <th>Data Validade</th>
+                <th>Status</th>
+                <th>Ativar/Desativar</th>
                 <th>Info</th>
-                
 
             </tr>
 
@@ -59,15 +60,35 @@
                 @if(isset($a->pessoa))
                     <tr>
                         <td>{{ $a->id }}</td>
-                        <td>{{ $a->pessoa->nome}}</td>
-                        <td>{{ $a->pessoa->matricula}}</td>
-                        <td>{{ $a->pessoa->telefone}}</td>
-                        <td>{{ $a->pessoa->curso->nome}}</td>
-                        <td>{{ $a->pessoa->email }}</td>
-                        <td>{{ date( 'd/m/Y' , strtotime($a->data_inicio))}}</td>
-
+                    <td>{{ $a->pessoa->nome}}</td>
+                    <td>{{ $a->pessoa->matricula}}</td>
+                    <td>{{ $a->pessoa->telefone}}</td>
+                    <td>{{ $a->pessoa->curso->nome}}</td>
+                    <td>{{ $a->pessoa->email }}</td>
+                    <td>{{ date( 'd/m/Y' , strtotime($a->data_inicio))}}</td>
+                    @if($a->data_termino < $now)
                         <td class="text-danger">{{ date( 'd/m/Y' , strtotime($a->data_termino))}}</td>
-                        <td ><a class="btn btn-info btn-sm" href="{{route('associado.show', $a->id)}}">Info</a></td>  
+                    @else
+                        <td class="text-success">{{ date( 'd/m/Y' , strtotime($a->data_termino))}}</td>
+                    @endif
+
+                    @if($a->deleted_at != NULL)
+                        <td class="text text-danger"> Desativado</td>
+                    @else
+                        <td class="text text-success"> Ativado</td>
+                    @endif
+
+                    @if($a->deleted_at == NULL)
+                        <td><form method="post" onsubmit="return confirm('Desativar Associado?');" action="{{ route('associado.destroy', $a) }}">
+                            @csrf
+                            @method('DELETE')
+                            <button class="btn btn-danger btn-sm" type="submit">Desativar</button>
+                        </form></td>
+                    @else
+                       <td> <a class="btn btn-success btn-sm" href="{{ route('associado.restore', $a->id) }}">Ativar</a></td>
+                    @endif
+
+                    <td ><a class="btn btn-info btn-sm" href="{{route('associado.show', $a->id)}}">Info</a></td>   
                     </tr>
                 @endif
             @endforeach

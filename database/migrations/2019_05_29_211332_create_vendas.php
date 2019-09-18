@@ -26,13 +26,14 @@ class CreateVendas extends Migration
             
             //$table->foreign('status_id')->references('id')->on('status')->onDelete('cascade');
             $table->foreign('pagamento_id')->references('id')->on('pagamentos')->onDelete('cascade');
-            $table->foreign('associado_id')->references('id')->on('associados')->onDelete('cascade');
+            $table->foreign('associado_id')->references('id')->on('associados');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
            
 
             //$table->timestamp('created_at')->default(\DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(\DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
             $table->timestamp('created_at')->nullable();
+            //$table->engine = 'MyISAM';
             $table->engine = 'InnoDB';
         });
     }

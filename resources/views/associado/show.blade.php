@@ -126,7 +126,7 @@
 		<a class="btn btn-success btn-sm" href="{{ route('associado.edit', $associado->id) }}">
 		Editar</a>
 		<a class="btn btn-secondary btn-sm" href="{{ route('associado.restore', $associado->id) }}">Ativar</a>
-		<form method="post" onsubmit="return confirm('Confirma exclusão do Atleta?');" action="{{ route('associado.destroy', $associado->id) }}">
+		<form method="post" onsubmit="return confirm('Se você excluir o usuário ao invés de desativá-lo, todos os dados de venda e registros realizados pelo usuário serão perdidos. Confirma Exclusão do Associado ?');" action="{{route('associado.forceDelete', $associado->id)}}">
 
 	  		@csrf
 	  		@method('DELETE')
