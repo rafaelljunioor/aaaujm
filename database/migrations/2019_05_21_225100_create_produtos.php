@@ -20,7 +20,8 @@ class CreateProdutos extends Migration
             $table->integer('fornecedor_id')->unsigned();
             $table->string('nome',191);
             $table->integer('estoque')->unsigned();
-            $table->decimal('preco_sugerido',8, 2);
+            $table->decimal('preco_socio',8, 2);
+            $table->decimal('preco_nao_socio',8, 2);
             $table->integer('tamanho_id')->nullable();
             $table->softDeletes();
             //$table->timestamp('created_at')->default(\DB::raw('CURRENT_TIMESTAMP'));

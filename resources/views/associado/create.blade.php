@@ -43,7 +43,7 @@
 			    <input type="text" 
 			    	   class="form-control {{$errors->has('nome') ? 'is-invalid' : ''}}" 
 			    	   id="inputnome" 
-			    	   placeholder="Insira Seu Nome" 
+			    	   placeholder="Insira o nome do associado" 
 			    	   name="nome">
 			    	@if($errors->has('nome'))
 	  					<div class="invalid-feedback">

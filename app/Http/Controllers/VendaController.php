@@ -13,6 +13,7 @@ use App\Associado;
 use App\Pagamento;
 use App\Parcela;
 use DateTime;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
@@ -31,6 +32,7 @@ class VendaController extends Controller
         if(Auth::check()){
               $venda = Venda::orWhereBetween('created_at',[$request->data_inicio,$request->data_termino])
               ->orWhere('id',$request->id_venda)
+              ->orderBy('id', 'desc')
               ->get();
           return view('venda.resultadoBusca')->with('venda', $venda);
         }else{
@@ -45,7 +47,7 @@ class VendaController extends Controller
     public function index()
     {
         if(Auth::check()){
-            $venda = Venda::paginate(10); 
+            $venda = Venda::orderBy('id', 'desc')->paginate(10); 
             return view('venda.index')->with('venda', $venda);
         }else{
             return redirect()->route('login');
@@ -66,7 +68,7 @@ class VendaController extends Controller
             $associados = Associado::all();
             $pagamentos = Pagamento::all();
             $servicos = Servico::all();
-            return view('venda.create')->with('produtos', $produtos)->with('servicos', $servicos)->with('associados', $associados)->with('pagamentos', $pagamentos);
+            return view('venda.create')->with('produtos', $produtos)->with('servicos', $servicos)->with('associados', $associados)->with('pagamentos', $pagamentos)->with('now', Carbon::now());
         }else{
             return redirect()->route('login');
         }
@@ -84,8 +86,8 @@ class VendaController extends Controller
 
         $mensagens = ['pagamento.required' => 'O campo :attribute é obrigatório',
         'desconto.required' => 'O campo :attribute é obrigatório',
-        'desconto.between' => 'O :attribute é de 0% a 100%',
-        'desconto.integer' => 'O :attribute deve ser um valor inteiro',
+        'desconto.gt' => 'O :attribute deve ser maior que 0',
+        //'desconto.integer' => 'O :attribute deve ser um valor inteiro',
         'data_pagamento.required' => 'O campo :attribute é obrigatório',
         'parcelas.required' => 'O campo :attribute é obrigatório',
         'parcelas.min' => 'Numero minimo de parcelas é 1',
@@ -98,12 +100,12 @@ class VendaController extends Controller
         'quantidade.*.required' => 'A quantidade de produtos é obrigatorio',
         'quantidade.*.gt' => 'A quantidade de produtos deve ser maior/igual a 1',
         'quantidade.*.integer' => 'A quantidade de produtos deve ser um valor inteiro',
-        'valor_unitario.required' => 'O valor unitário é obrigatorio',
-        'valor_unitario.*.required' => 'O valor unitário é obrigatorio',
-        'valor_unitario.*.gt' => 'O valor unitario do produto deve ser maior que 0',
-        'valor_unitario_servicos.required' => 'O valor unitário é obrigatorio',
-        'valor_unitario_servicos.*.required' => 'O valor unitário é obrigatorio',
-        'valor_unitario_servicos.*.gt' => 'O valor unitário do serviço deve ser maior que 0',
+        //'valor_unitario.required' => 'O valor unitário é obrigatorio',
+        //'valor_unitario.*.required' => 'O valor unitário é obrigatorio',
+        //'valor_unitario.*.gt' => 'O valor unitario do produto deve ser maior que 0',
+        //'valor_unitario_servicos.required' => 'O valor unitário é obrigatorio',
+        //'valor_unitario_servicos.*.required' => 'O valor unitário é obrigatorio',
+        //'valor_unitario_servicos.*.gt' => 'O valor unitário do serviço deve ser maior que 0',
         'preco_total.required' => 'O preço total do produto é obrigatorio',
         'preco_total.*.required' => 'O preço total do produto é obrigatorio',
         'preco_total.*.gt' => 'O preço total do produto deve ser maior que 0',
@@ -120,7 +122,8 @@ class VendaController extends Controller
     if ($request->produtos!=null || $request->servicos!=null) { 
 
         $request->validate(['pagamento'=>'required',
-            'desconto'=>'required|integer|between:0,100',
+            //'desconto'=>'required|integer|between:0,100',
+            'desconto'=>'required|gt:0',
             'data_pagamento'=>'required|date|after:yesterday',
             'parcelas'=>'required|integer|min:1'], 
             $mensagens);
@@ -129,11 +132,7 @@ class VendaController extends Controller
             $request->validate([
                 'produtos.*'  => 'distinct|required|integer',
                 'quantidade'   => 'required|array',
-                'quantidade.*'  => 'required|integer|gt:0',
-                'valor_unitario'   => 'required|array',
-                'valor_unitario.*'  => 'required|gt:0',
-                //'preco_total'   => 'required|array',
-                //'preco_total.*'  => 'required|gt:0',
+                'quantidade.*'  => 'required|integer|gt:0'
 
             ], $mensagens);
         }
@@ -141,19 +140,16 @@ class VendaController extends Controller
         if ($request->servicos!=null) {
             $request->validate([
                 'servicos.*'  => 'distinct|required|integer',
-                'valor_unitario_servicos'   => 'required|array',
-                'valor_unitario_servicos.*'  => 'required|gt:0',
-                //'preco_total_servicos'   => 'required|array',
-                //'preco_total_servicos.*'  => 'required|gt:0',
-
+                //'valor_unitario_servicos'   => 'required|array',
+                //'valor_unitario_servicos.*'  => 'required|gt:0'
             ], $mensagens);
 
         }
+
         // Transação de venda será completa apenas se não ocorrer nenhum erro durante o processo
         DB::beginTransaction();
 
         try {
-
 
             $total = 0; /// valor total da venda
 
@@ -168,107 +164,196 @@ class VendaController extends Controller
             // Valida e registra venda de produtos
             if ($request->produtos!=null) {
 
-
-                for ($i = 0; $i < count($request->produtos); $i++) 
-                { 
-
-                    $produto = Produto::find($request->produtos[$i]);
-
-                    $pedido = new Pedido();
-                    $pedido->produto_id = $request->produtos[$i];
-                    $pedido->venda_id = $venda->getKey();
-                    $pedido->valor_unitario = $request->valor_unitario[$i];
-                    $pedido->quantidade = $request->quantidade[$i];
-                    $pedido->valor_total_item = $request->valor_unitario[$i]*$request->quantidade[$i];//$request->preco_total[$i];
-
-                    if($produto->estoque<$pedido->quantidade){
-                        throw new \Exception('Quantidade do produto não existe em estoque');
-                    }
-                    else{
-                        $produto->estoque = $produto->estoque - $pedido->quantidade;
-                        $produto->save();
-                    }
-
-                    $pedido->save();
-
-                    $total += $request->quantidade[$i]*$request->valor_unitario[$i];
-                }
+                $total = $this->processaProdutos($request,$venda);
             } 
 
             //validação do form e venda dos servicos. 
             if ($request->servicos!=null) {
-                for ($i = 0; $i < count($request->servicos); $i++) 
-                { 
-
-                    $pedido = new Pedido();
-                    $pedido->servico_id = $request->servicos[$i];
-                    $pedido->venda_id = $venda->getKey();
-                    $pedido->quantidade= 1;
-                    $pedido->valor_unitario = $request->valor_unitario_servicos[$i];
-                    $pedido->valor_total_item = $request->valor_unitario_servicos[$i];
-                    $pedido->save();
-
-                    $total += 1*$request->valor_unitario_servicos[$i];         
-
-                }
-
+               
+                $total += $this->processaServicos($request,$venda);
             }
 
-            //Atualiza o valor da venda.
-            $venda->valor_total_venda = $total - ($request->desconto/100)*$total; 
-            $venda->valor_total_venda_sem_desconto =$total;
-            $venda->update();
+            if($request->desconto>$total){
+              throw new \Exception('Valor de desconto maior que preço da venda');
+            }
+            else{
+              $venda->valor_total_venda = $total - $request->desconto; 
+              $venda->valor_total_venda_sem_desconto =$total;
+              $venda->update();
+            }     
 
-            //Divide as parcelas, suas datas e valores. 
-            for ($i = 0; $i < $request->parcelas; $i++) 
-            { 
-                $parcela = New Parcela();
-                $parcela->venda_id = $venda->getKey();
-                $parcela->numero = $i+1;
-
-                $restoDivisao = $venda->valor_total_venda % $request->parcelas;
-
-
-                if($i==0){  
-                    $parcela->data_pagamento = $request->data_pagamento;
-                    $dateCont = $request->data_pagamento;
-                }
-                else if($i>0){
-
-                 $parcela->data_pagamento = date('Y-m-d', strtotime("+1 month",strtotime($dateCont)));
-                 $dateCont = $parcela->data_pagamento;
-             }
-
-             $restoDivisao = fmod($venda->valor_total_venda,$request->parcelas);
-
-             if($i==$request->parcelas-1){
-                 $parcela->valor_parcela = intdiv($venda->valor_total_venda,$request->parcelas) + $restoDivisao;
-             }
-             else{
-                 $parcela->valor_parcela = intdiv($venda->valor_total_venda,$request->parcelas);
-             }
-
-
-             $parcela->save();
-         }
-
+            $this->criaParcelas($request,$venda);
 
          DB::commit();
 
-     } catch (Exception $e) {
-      DB::rollback(); 
-      $request->session()->flash('error', $e->getMessage());
-      return redirect()->route('venda.create'); 
+       } catch (Exception $e) {
+          DB::rollback(); 
+          $request->session()->flash('error', $e->getMessage());
+          return redirect()->route('venda.create'); 
+       }
+
+      } else{
+         $request->session()->flash('error', 'Um produto ou serviço deve ser preenchido');
+         return redirect()->route('venda.create');
+      }
+    return redirect()->route('venda.index');
   }
 
-} else{
-   $request->session()->flash('error', 'Um produto ou serviço deve ser preenchido');
-   return redirect()->route('venda.create');
-}
 
-return redirect()->route('venda.index');
+    /**
+     * Função responsável por calcular valor total dos pedido referente aos produtos
+     * e gerar os pedidos dos N serviços solicitados.
+     *
+     * @param  Request  $request 
+     * @param  Venda    $venda 
+     * @return int      $total 
+     */
+    private function processaProdutos(Request $request, Venda $venda){
+        $total = 0;
 
-}
+        for ($i = 0; $i < count($request->produtos); $i++) 
+            { 
+              $produto = Produto::find($request->produtos[$i]);
+
+              $pedido = new Pedido();
+              $pedido->produto_id = $request->produtos[$i];
+              $pedido->venda_id = $venda->getKey();
+                        //$pedido->valor_unitario = $request->valor_unitario[$i];
+              $pedido->quantidade = $request->quantidade[$i];
+
+              if($this->isAssociado($request) && $this->isValido($request)){
+                
+                $pedido->valor_unitario = $produto->preco_socio;
+                $pedido->valor_total_item = $produto->preco_socio*$request->quantidade[$i];
+                $total += $request->quantidade[$i]*$produto->preco_socio;
+
+              }else{
+                $pedido->valor_unitario = $produto->preco_nao_socio;
+                $pedido->valor_total_item = $produto->preco_nao_socio*$request->quantidade[$i];
+                $total += $request->quantidade[$i]*$produto->preco_nao_socio;
+
+              }
+              
+              if($produto->estoque<$pedido->quantidade){
+                  throw new \Exception('Quantidade do produto não existe em estoque');
+              }
+              else{
+                  $produto->estoque = $produto->estoque - $pedido->quantidade;
+                  $produto->save();
+              }
+
+              $pedido->save();
+            }
+          return $total;
+      } 
+
+
+    /**
+     * Função responsável por calcular valor total dos pedido referente aos serviço
+     * e gerar os pedidos dos N serviços solicitados.
+     *
+     * @param  Request  $request 
+     * @param  Venda    $venda 
+     * @return int      $total 
+     */
+
+    private function processaServicos(Request $request, Venda $venda){
+        $total = 0;
+
+        for($i = 0; $i < count($request->servicos); $i++) 
+          { 
+           $servico = Servico::find($request->servicos[$i]);
+
+           $pedido = new Pedido();
+           $pedido->servico_id = $request->servicos[$i];
+           $pedido->venda_id = $venda->getKey();
+           $pedido->quantidade= 1;
+           $pedido->valor_unitario = $servico->preco_sugerido;
+           $pedido->valor_total_item = $servico->preco_sugerido;
+           $pedido->save();
+
+           $total += $servico->preco_sugerido;         
+
+          }
+          return $total;
+      }
+
+    /**
+     * Função responsável por gerar parcelas
+     *
+     * @param  Request  $request 
+     * @param  Venda    $venda 
+     * 
+     */
+
+    private function criaParcelas(Request $request, Venda $venda){
+      for ($i = 0; $i < $request->parcelas; $i++) 
+          { 
+            $parcela = New Parcela();
+            $parcela->venda_id = $venda->getKey();
+            $parcela->numero = $i+1;
+
+            $restoDivisao = $venda->valor_total_venda % $request->parcelas;
+
+
+              if($i==0){  
+                  $parcela->data_pagamento = $request->data_pagamento;
+                  $dateCont = $request->data_pagamento;
+              }
+              else if($i>0){
+                  $parcela->data_pagamento = date('Y-m-d', strtotime("+1 month",strtotime($dateCont)));
+                  $dateCont = $parcela->data_pagamento;
+              }
+
+              $restoDivisao = fmod($venda->valor_total_venda,$request->parcelas);
+
+               if($i==$request->parcelas-1){
+                   $parcela->valor_parcela = intdiv($venda->valor_total_venda,$request->parcelas) + $restoDivisao;
+               }
+               else{
+                   $parcela->valor_parcela = intdiv($venda->valor_total_venda,$request->parcelas);
+               }
+             $parcela->save();
+         }
+    }
+
+     /**
+     * Verifica se é associado
+     *
+     * @param  Request  $request
+     * @return true ou false
+     */
+
+    private function isAssociado(Request $request){
+      
+      if($request->associado!=null){
+        $associado = Associado::find($request->associado);
+          if($associado->count()==0)
+            return false;
+          else
+            return true;
+      }else 
+        return false;
+    }
+
+    private function isValido(Request $request){
+
+      if($request->associado!=null){
+        $associado = Associado::find($request->associado);
+          if($associado->data_termino<Carbon::now())
+            return false;
+          else
+            return true;
+      }else
+        return false;
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
 
 
     /**

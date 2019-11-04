@@ -82,7 +82,7 @@
 	  		@csrf
 	  		@method('DELETE')
 	  		<br>
-	  		<input class="btn btn-danger btn-sm" type="submit" value="Excluir">
+	  		<input class="btn btn-danger btn-sm" type="submit" value="Desativar">
 
 		</form>
 	</div>

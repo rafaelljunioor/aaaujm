@@ -65,7 +65,7 @@
 				</tr>
 				<tr class="table-light table-bordered">
 					<td colspan="3"><strong>Desconto</strong></td>
-					<td colspan="1"><strong>{{$venda->desconto}}%</strong></td>
+					<td colspan="1"><strong>R$ {{$venda->desconto}}</strong></td>
 				</tr>
 				
 			</tbody>

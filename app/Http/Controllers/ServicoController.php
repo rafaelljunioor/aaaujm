@@ -24,7 +24,7 @@ class ServicoController extends Controller
     {
         if(Auth::check()){
             if(Auth::user()->type == 2 || Auth::user()->type == 1){
-                $servico = Servico::withTrashed()->paginate(10);
+                $servico = Servico::orderBy('nome')->withTrashed()->paginate(10);
                 return view('servico.index')->with('servico', $servico);
             }else{
                 return redirect()->back();

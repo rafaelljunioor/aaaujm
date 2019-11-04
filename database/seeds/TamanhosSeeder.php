@@ -19,5 +19,6 @@ class TamanhosSeeder extends Seeder
         DB::table('tamanhos')->insert([ 'nome'=>'MBL']);
         DB::table('tamanhos')->insert([ 'nome'=>'GBL']);
         DB::table('tamanhos')->insert([ 'nome'=>'EGBL']);
+        DB::table('tamanhos')->insert([ 'nome'=>'Único']);
     }
 }

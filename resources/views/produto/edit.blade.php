@@ -73,18 +73,35 @@
 			</div>
 
 			<div class="form-group">
-				<label for="inputPreco">Preço Sugerido</label>
+				<label for="inputPreco">Preço Sócio</label>
 			    <input type="text" 
-			    	   class="form-control {{$errors->has('data_termino') ? 'is-invalid' : ''}}" 
+			    	   class="form-control {{$errors->has('preco_socio') ? 'is-invalid' : ''}}" 
 			    	   id="inputPreco" 
 			    	   placeholder="Valor sugerido" 
-			    	   name="preco_sugerido" 
+			    	   name="preco_socio" 
 			    	   data-decimal=","
-			    	   value="{{$produto->preco_sugerido}}">
+			    	   value="{{$produto->preco_socio}}">
 
-			    	@if($errors->has('preco_sugerido'))
+			    	@if($errors->has('preco_socio'))
 	  					<div class="invalid-feedback">
-	  						{{$errors->first('preco_sugerido')}}
+	  						{{$errors->first('preco_socio')}}
+	  					</div>
+	  				@endif
+			</div>
+
+			<div class="form-group">
+				<label for="inputPreco">Preço Não Sócio</label>
+			    <input type="text" 
+			    	   class="form-control {{$errors->has('preco_nao_socio') ? 'is-invalid' : ''}}" 
+			    	   id="inputPrecoNaoSocio" 
+			    	   placeholder="Valor sugerido" 
+			    	   name="preco_nao_socio" 
+			    	   data-decimal=","
+			    	   value="{{$produto->preco_nao_socio}}">
+
+			    	@if($errors->has('preco_nao_socio'))
+	  					<div class="invalid-feedback">
+	  						{{$errors->first('preco_nao_socio')}}
 	  					</div>
 	  				@endif
 			</div>

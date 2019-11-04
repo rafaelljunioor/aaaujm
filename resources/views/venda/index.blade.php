@@ -48,7 +48,7 @@
                 </div>      
                 <div class="col-md-4 mb-3">
 
-                    <label for="inputDataTermino">Data Termino</label>
+                    <label for="inputDataTermino">Data Término</label>
                     <input  type="date" 
                             class="form-control" 
                             id="inputDataTermino" 
@@ -61,6 +61,7 @@
                     <input  type="text" 
                             class="form-control"
                             id="inputIdVenda" 
+                            placeholder="Informe o ID" 
                             name="id_venda" >
                 </div>
 
@@ -79,7 +80,7 @@
                     <th>Associado</th>
                     <th>Valor</th> 
                     <th>Desconto</th>
-                    <th>Usuario/Vendedor</th>
+                    <!--<th>Usuario/Vendedor</th>-->
                     <th>Id Vendedor</th>
                     <th>Forma de Pagamento</th>
                     <th>Data</th>
@@ -100,9 +101,13 @@
                     @endif
 
                     <td>R$ {{$v->valor_total_venda}}</td>
-                    <td> {{$v->desconto}} %</td>
-                    <td>{{$v->user->name}}</td>
-                    <td>{{$v->user_id}}</td>
+                    <td>R$ {{$v->desconto}}</td>
+              
+                    @if($v->user_id!=NULL)
+                        <td>{{$v->user_id}}</td>
+                    @else
+                        <td>NÃO INFORMADO</td>
+                    @endif
                     <td>{{$v->pagamento->nome}}</td>
         
                     <td>{{ date( 'd/m/Y' , strtotime($v->created_at))}}</td>

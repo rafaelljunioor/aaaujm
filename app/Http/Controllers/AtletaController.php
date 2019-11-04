@@ -127,6 +127,7 @@ class AtletaController extends Controller
         'altura.required' => 'O campo altura é obrigatório',
         'peso.required' => 'O campo peso é obrigatório',
         'email.unique' => 'Esse :attribute ja foi cadastrado',
+        'descricao.max' => 'A descrição precisa ter menos que 191 caracteres'
     ];
 
 

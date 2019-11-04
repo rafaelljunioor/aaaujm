@@ -327,10 +327,6 @@
       </div>
     </div>
 
-    
-    
-
-
 </body>
 <script src="{{asset('js/bootstrap.js')}}" type="text/javascript"></script>
 <!--<script src="{{asset('js/jquery.maskMoney.js')}}" type="text/javascript"></script>-->

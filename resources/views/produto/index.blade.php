@@ -31,7 +31,8 @@
                     <th>Id do Produto</th>
                     <th>Nome</th>
                     <th>Estoque</th>
-                    <th>Preço Sugerido</th>
+                    <th>Preço Sócio</th>
+                    <th>Preço não Sócio</th>
                     <th>Tamanho</th>
                     <th>Nome Fornecedor</th>
                     <th>Status</th>
@@ -47,7 +48,8 @@
                     <td>{{$p->id}}</td>
                     <td>{{$p->nome}}</td>
                     <td>{{$p->estoque}}</td>
-                    <td>R$ {{$p->preco_sugerido}}</td>
+                    <td>R$ {{$p->preco_socio}}</td>
+                    <td>R$ {{$p->preco_nao_socio}}</td>
                     @if(isset($p->tamanho->nome))
                         <td>{{$p->tamanho->nome}}</td>
                     @else

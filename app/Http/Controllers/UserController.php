@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\User;
 use App\Role;
-
+use Illuminate\Support\Facades\DB;
 class UserController extends Controller
 {
 	 public function __construct()
@@ -26,7 +26,7 @@ class UserController extends Controller
 
         if(Auth::check()){
             if(Auth::user()->type == 1){
-                $user = User::withTrashed()->paginate(15);
+                $user = User::orderBy('name')->withTrashed()->paginate(15);
                 return view('users.index')->with('user', $user);
             }else {
                 return redirect()->back();
@@ -66,6 +66,25 @@ class UserController extends Controller
     {
          if(Auth::check()){
             if(Auth::user()->type == 1){
+
+                 $mensagens = [
+                    'name.required' => 'O campo nome é obrigatório',
+                    'name.max' => 'O campo nome deve ter no máximo 191 caracteres',
+                    'type.required' => 'O campo tipo é obrigatório',
+                    'email.required' => 'O campo :attribute é obrigatório',
+                    'email.unique' => 'O emails já foi cadastrado',
+                    'password.required' => 'O campo senha é obrigatório',
+                    'password.confirmed' => 'As senhas estão diferentes',
+                    'password.min' => 'A senha deve ser maior/igual a 8 caracteres',
+                ];
+
+                $request->validate([
+                    'name'=>'required|max:191|string',
+                    'type' => 'required',
+                    'email' => 'required|unique:users|string',
+                    'password' => 'required|min:8|confirmed|string',
+                ] , $mensagens);
+
                 $user = New User();
                 
                 $user->name = $request->name;
@@ -192,6 +211,7 @@ class UserController extends Controller
     public function forceDelete($id)
     {   
         $user = User::withTrashed()->find($id);
+         DB::update('update vendas set user_id = null where user_id = '.$id.'');
         $user->forceDelete();
         return redirect()->route('user.index')->with('success', 'Exclusão realizada com sucesso!');
     }

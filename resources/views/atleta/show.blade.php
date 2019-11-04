@@ -29,7 +29,7 @@
 
 
 	<div class="card-body">
-		<table class="table table-condensed table-hover table-striped table-responsive-sm table-responsive-md">
+		<table class="table table-condensed table-hover table-striped table-responsive-sm table-responsive">
 			<thead>
 				<th> Atributos</th>
 				<th> Valores </th>

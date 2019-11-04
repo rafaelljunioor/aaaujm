@@ -15,11 +15,11 @@
 			@csrf
 			
 			  <div class="form-group">
-				<p >Nome:  </p>
+				<p >Nome</p>
 				<input type="text" 
 			    	   class="form-control {{$errors->has('nome') ? 'is-invalid' : ''}}" 
 			    	   id="inputNome" 
-			    	   placeholder="Insira o nome do produto" 
+			    	   placeholder="Insira o nome do fornecedor" 
 			    	   name="nome">
 
 			    	@if($errors->has('nome'))
@@ -45,10 +45,10 @@
 			</div>
 
 			<div class="form-group">
-				<label for="inputlocal">Email</label>
+				<label for="inputlocal">E-mail</label>
 				<input  class="form-control {{$errors->has('email') ? 'is-invalid' : ''}}"  
 						type="text"
-						placeholder="Informe seu email" 
+						placeholder="Informe o email do fornecedor" 
 						name="email">
 
 				@if($errors->has('email'))
@@ -74,11 +74,11 @@
 			</div>
 
 			<div class="form-group">
-				<label for="inputDescricao">Descricao</label>
+				<label for="inputDescricao">Descrição</label>
 			    <input type="text" 
 			    	   class="form-control {{$errors->has('descricao') ? 'is-invalid' : ''}}" 
 			    	   id="inputDescricao" 
-			    	   placeholder="Informe o contato" 
+			    	   placeholder="Mais informações" 
 			    	   name="descricao">
 
 			    	@if($errors->has('descricao'))

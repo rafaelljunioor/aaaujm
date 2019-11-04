@@ -16,7 +16,7 @@
 			    <input type="text" 
 			    	   class="form-control {{$errors->has('nome') ? 'is-invalid' : ''}}" 
 			    	   id="inputNome" 
-			    	   placeholder="Insira o nome do produto" 
+			    	   placeholder="Insira o nome do serviço" 
 			    	   name="nome">
 
 			    	@if($errors->has('nome'))
@@ -49,7 +49,7 @@
 			    <input type="text" 
 			    	   class="form-control {{$errors->has('descricao') ? 'is-invalid' : ''}}" 
 			    	   id="inputPreco" 
-			    	   placeholder="Descricao do servico" 
+			    	   placeholder="Descrição do serviço" 
 			    	   name="descricao" 
 			    	   >
 

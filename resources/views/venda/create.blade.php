@@ -16,7 +16,7 @@
 
     <div class="card-header">
        <div class="card-title"> 
-            <h1>Registrar Venda de Produto</h1>
+            <h1>Registrar Venda</h1>
         </div>
     </div>
 
@@ -29,8 +29,15 @@
                 <select class="form-control {{$errors->has('associado') ? 'is-invalid' : ''}}" id="associados" name="associado">
                     <option value="">Venda Avulsa</option>
                     @foreach($associados as $a)
-                    <option value="{{ $a->id }}"> {{ $a->pessoa->nome }}
-                    </option>
+                        @if($a->data_termino < $now)
+                            <option style="color: #cc0000;" value="{{ $a->id }}"> {{ $a->pessoa->nome }} - Irregular.
+                            </option>
+                        @else
+                            <option style="color: #336600;" value="{{ $a->id }}"> {{ $a->pessoa->nome }}
+                            </option>
+                        @endif
+
+                    
                     @endforeach
                 </select>
                 @if($errors->has('associado'))
@@ -56,15 +63,15 @@
             </div>
             <div class="form-group">
                 <label for="inputDesconto">Desconto:</label>
-                <!--<input type="number" class="form-control {{$errors->has('desconto') ? 'is-invalid' : ''}}" id="inputDesconto" placeholder="Valor de Desconto" name="desconto">-->
-                <select class="form-control {{$errors->has('desconto') ? 'is-invalid' : ''}}" id="descontos" name="desconto">
+                <input type="number" class="form-control {{$errors->has('desconto') ? 'is-invalid' : ''}}" step="0.01" id="inputDesconto" placeholder="Valor de Desconto" name="desconto" data-decimal=",">
+                <!--<select class="form-control {{$errors->has('desconto') ? 'is-invalid' : ''}}" id="descontos" name="desconto">
                     <option value="">Selecione:</option>
                      @for ($i = 0; $i <= 100; $i++)
                          <option value="{{ $i }}"> {{ $i }} %
                     </option>
                     @endfor
                     
-                </select>
+                </select>-->
                 @if($errors->has('desconto'))
                 <div class="invalid-feedback">
                     {{$errors->first('desconto')}}
@@ -85,7 +92,7 @@
             </div>
             <div class="form-group">
                 <label for="inputDataPagamento">Data Pagamento</label>
-                <input type="date" class="form-control {{$errors->has('data_pagamento') ? 'is-invalid' : ''}}" id="inputDataPagamento" placeholder="18/09/2018" name="data_pagamento"> @if($errors->has('data_pagamento'))
+                <input type="date" class="form-control {{$errors->has('data_pagamento') ? 'is-invalid' : ''}}" id="inputDataPagamento" name="data_pagamento" > @if($errors->has('data_pagamento'))
                 <div class="invalid-feedback">
                     {{$errors->first('data_pagamento')}}
                 </div>
@@ -142,10 +149,13 @@
                 </tfoot>
             </table>
             <button class="btn btn-success btn-sm" type="submit">Concluir</button>
+            <a class="btn btn-danger btn-sm" href="{{route('venda.index')}}">Cancelar</a>
             </div>
             </div>
         </form>
+
     </div>
+
     <div class="card-footer">
         <!--Servicos-->
         @if($errors->has('servicos.*'))
@@ -212,6 +222,12 @@
 
 @section('javascript')
 <script type="text/javascript">
+
+    $(function(){
+      $('#inputDesconto').mask('#0.00', {reverse: true});;
+      })
+
+
     removeLinha = function(handler) {
         var tr = $(handler).closest('tr');
         tr.fadeOut(400, function() {
@@ -233,7 +249,7 @@
        tr.fadeOut(400, function() {
             //var i;
             //for(i=tr.rowIndex;i<)
-            for(i=linha; i>=linha-5;i--){
+            for(i=linha; i>=linha-4;i--){
 
             document.getElementById("tabela-produtos").deleteRow(i);
         }
@@ -253,7 +269,7 @@
        tr.fadeOut(400, function() {
             //var i;
             //for(i=tr.rowIndex;i<)
-            for(i=linha; i>=linha-4;i--){
+            for(i=linha; i>=linha-3;i--){
 
             document.getElementById("tabela-servicos").deleteRow(i);
         }
@@ -267,7 +283,7 @@
 
        var cols = '<tr class="text-center table-secondary"><td colspan="2" style="text-align: center;">Novo Produto</td><tr/>';
 
-        cols += '<tr><td><label>Produto</label></td> <td><select class="form-control product" id="tamanho" name="produtos[]"><option value="">Selecione:</option>@foreach($produtos as $p)<option value="{{ $p->id }}"> {{ $p->nome }} - R$ {{$p->preco_sugerido}}</option>@endforeach</select></td></tr>';
+        cols += '<tr><td><label>Produto</label></td> <td><select class="form-control product" id="tamanho" name="produtos[]"><option value="">Selecione:</option>@foreach($produtos as $p)<option value="{{ $p->id }}"> {{ $p->nome }} - Sócio R$ {{$p->preco_socio}} / Não Sócio R$ {{$p->preco_nao_socio}} </option>@endforeach</select></td></tr>';
 
         $("#tabela-produtos").append(cols);
 
@@ -275,9 +291,9 @@
 
         $("#tabela-produtos").append(cols);
 
-        cols = '<tr><td><label>Valor Unitário</label></td><td><input id="valor_unitario" type="number" step= "0.01" class="form-control preco" name="valor_unitario[]"></td></tr>';
+        //cols = '<tr><td><label>Valor Unitário</label></td><td><input id="valor_unitario" type="number" step= "0.01" class="form-control preco" name="valor_unitario[]"></td></tr>';
          
-         $("#tabela-produtos").append(cols);
+        // $("#tabela-produtos").append(cols);
 
          //cols = '<tr><td><label>Preco Total</label></td><td class="total"><input readonly id="valor_total" type="number" class="form-control" name="preco_total[]" step= "0.01"></td></tr>';
 
@@ -331,9 +347,9 @@
 
         $("#tabela-servicos").append(cols);
 
-        cols = '<tr><td><label>Valor Unitário</label></td><td><input id="valor_unitario" type="number" step= "0.01" class="form-control preco" name="valor_unitario_servicos[]"></td></tr>';
+       // cols = '<tr><td><label>Valor Unitário</label></td><td><input id="valor_unitario" type="number" step= "0.01" class="form-control preco" name="valor_unitario_servicos[]"></td></tr>';
          
-         $("#tabela-servicos").append(cols);
+        // $("#tabela-servicos").append(cols);
 
          //cols = '<tr><td><label>Preco Total</label></td><td class="total"><input readonly id="valor_total" type="number" class="form-control" name="preco_total[]" step= "0.01"></td></tr>';
 

@@ -48,8 +48,15 @@
 				</tr>
 
 				<tr>
-					<td>Valor Sugerido</td>
-					<td>R$ {{$produto->preco_sugerido}}</td>
+					<td>Valor Socio</td>
+					<td>R$ {{$produto->preco_socio}}</td>
+	                   
+
+				</tr>
+
+				<tr>
+					<td>Valor Não Socio</td>
+					<td>R$ {{$produto->preco_nao_socio}}</td>
 	                   
 
 				</tr>
@@ -80,7 +87,7 @@
 	  		@csrf
 	  		@method('DELETE')
 	  		<br>
-	  		<input class="btn btn-danger btn-sm" type="submit" value="Excluir">
+	  		<input class="btn btn-danger btn-sm" type="submit" value="Desativar">
 
 		</form>
 	</div>

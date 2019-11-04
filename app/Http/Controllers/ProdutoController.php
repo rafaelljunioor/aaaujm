@@ -36,7 +36,7 @@ class ProdutoController extends Controller
     {
         if(Auth::check()){
             if(Auth::user()->type == 2 || Auth::user()->type == 1){
-                $produto = Produto::withTrashed()->paginate(15);
+                $produto = Produto::orderBy('nome')->withTrashed()->paginate(15);
                 return view ('produto.index')->with('produto', $produto);
             }else{
                 return redirect()->back();
@@ -87,8 +87,10 @@ class ProdutoController extends Controller
         'nome.max' => 'O campo :attribute deve possuir 191 caracteres',
         'tamanho_id.required' => 'O campo tamanho é obrigatório',
         'estoque.required' => 'O campo :attribute é obrigatório',
-        'preco_sugerido.required' => 'O campo preço é obrigatório',
-        'preco_sugerido.gt' => 'O campo :preço sugerido deve ser maior que 0',
+        'preco_socio.required' => 'O campo :attribute é obrigatório',
+        'preco_socio.gt' => 'O campo :attribute sugerido deve ser maior que 0',
+        'preco_nao_socio.required' => 'O campo :attribute é obrigatório',
+        'preco_nao_socio.gt' => 'O campo :attribute sugerido deve ser maior que 0',
         'fornecedor_id.required' => 'O campo fornecedor é obrigatório',
         'estoque.gt' => 'O campo :attribute deve ser maior que 0',
         'estoque.integer' => 'O campo :attribute deve ser inteiro',
@@ -97,7 +99,8 @@ class ProdutoController extends Controller
     $request->validate([
         'nome'=>'required|max:191',
         'estoque'=>'required|gt:0',
-        'preco_sugerido' => 'required|gt:0',
+        'preco_socio' => 'required|gt:0',
+        'preco_nao_socio' => 'required|gt:0',
         'fornecedor_id' =>'required',
         'tamanho_id'=>'required'
     ] , $mensagens);
@@ -165,8 +168,10 @@ class ProdutoController extends Controller
             'nome.max' => 'O campo :attribute deve possuir 191 caracteres',
             'tamanho_id.required' => 'O campo tamanho é obrigatório',
             'estoque.required' => 'O campo :attribute é obrigatório',
-            'preco_sugerido.required' => 'O campo preço é obrigatório',
-            'preco_sugerido.gt' => 'O campo :preço sugerido deve ser maior que 0',
+            'preco_socio.required' => 'O campo :attribute é obrigatório',
+            'preco_socio.gt' => 'O campo :attribute sugerido deve ser maior que 0',
+            'preco_nao_socio.required' => 'O campo :attribute é obrigatório',
+            'preco_nao_socio.gt' => 'O campo :attribute sugerido deve ser maior que 0',
             'fornecedor_id.required' => 'O campo fornecedor é obrigatório',
             'estoque.gt' => 'O campo :attribute deve ser maior que 0',
             'estoque.integer' => 'O campo :attribute deve ser inteiro',
@@ -175,7 +180,8 @@ class ProdutoController extends Controller
         $request->validate([
             'nome'=>'required|max:191',
             'estoque'=>'required|gt:0',
-            'preco_sugerido' => 'required|gt:0',
+            'preco_socio' => 'required|gt:0',
+            'preco_nao_socio' => 'required|gt:0',
             'fornecedor_id' =>'required',
             'tamanho_id'=>'required'
         ] , $mensagens);

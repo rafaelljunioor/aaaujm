@@ -44,7 +44,7 @@ class ModalidadeController extends Controller
         if(Auth::check()){
              if(Auth::user()->type == 3 || Auth::user()->type == 1){
                 //$modalidade = Modalidade::orderBy('id')->get();
-                $modalidade = Modalidade::paginate(10);
+                $modalidade = Modalidade::orderBy('nome')->paginate(10);
                 return view('modalidade.index')->with('modalidade', $modalidade);
                 }else{
                     return redirect()->route('login');

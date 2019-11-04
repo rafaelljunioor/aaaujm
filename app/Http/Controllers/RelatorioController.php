@@ -23,17 +23,21 @@ class RelatorioController extends Controller
     }
    
    public function gerarRelatorioAtletas(){
-        
-        $atleta = Atleta::all();
-        
-        return PDF::loadView('relatorios.relatorioAtletas', array('atleta' => $atleta))->download('relatorio-atletas.pdf');
+        if(Auth::user()->type == 2 || Auth::user()->type == 3){
+            $atleta = Atleta::all();
+            
+            return PDF::loadView('relatorios.relatorioAtletas', array('atleta' => $atleta))->download('relatorio-atletas.pdf');
+        }else{
+            return redirect()->back();
+        }
     }
 
     public function gerarRelatorioAssociados(){
-       
-        $associado = Associado::all();
         
-        return PDF::loadView('relatorios.relatorioAssociados', array('associado' => $associado))->download('relatorio-associados.pdf');
+            $associado = Associado::all();
+            
+            return PDF::loadView('relatorios.relatorioAssociados', array('associado' => $associado))->download('relatorio-associados.pdf');
+        
     }
 
     public function gerarRelatorioAssociadosEmDebito(){
@@ -46,22 +50,29 @@ class RelatorioController extends Controller
 
     public function gerarRelatorioAtletasEmModalidade($id){
        
-       $modalidade = Modalidade::where('id', '=', $id)->get();
-       //$dados =  DB::table('modalidades')->where('id','=',$id)->get();
-       $dados = Modalidade::find($id);
-       
-       
-        return PDF::loadView('relatorios.relatorioAtletasEmModalidade',
-        array('modalidade' => $modalidade, 'titulo'=>$dados->nome))->download('atleta-em-modalidade.pdf');
+       if(Auth::user()->type == 2 || Auth::user()->type == 3){
+           $modalidade = Modalidade::where('id', '=', $id)->get();
+           //$dados =  DB::table('modalidades')->where('id','=',$id)->get();
+           $dados = Modalidade::find($id);
+           
+           
+            return PDF::loadView('relatorios.relatorioAtletasEmModalidade',
+            array('modalidade' => $modalidade, 'titulo'=>$dados->nome))->download('atleta-em-modalidade.pdf');
+        }else{
+            return redirect()->back();
+        }
     }
 
 
     public function gerarRelatorioAtletasEmCompeticao($id){
-       
-       $competicao = Competicao::where('id', '=', $id)->get();
-        $dados = Competicao::find($id);
+       if(Auth::user()->type == 2 || Auth::user()->type == 3){
+           $competicao = Competicao::where('id', '=', $id)->get();
+            $dados = Competicao::find($id);
 
-        return PDF::loadView('relatorios.relatorioAtletasEmCompeticao', array('competicao' => $competicao, 'titulo'=>$dados->nome))->download('atleta-em-competicao.pdf');
+            return PDF::loadView('relatorios.relatorioAtletasEmCompeticao', array('competicao' => $competicao, 'titulo'=>$dados->nome))->download('atleta-em-competicao.pdf');
+        }else{
+            return redirect()->back();
+        }
     }
 
 

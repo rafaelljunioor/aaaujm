@@ -1,12 +1,15 @@
-@extends('layouts.app')
+@extends('layout.adm.app')
 
-@section('content')
-<div class="container">
+@section('conteudo')
+<!--<div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">Cadastrar Usuário</div>
-
+            <div class="card">-->
+            <div class="card-header">
+                <div class="card-title"> 
+                    <h1>Cadastrar Usuário</h1>
+                </div>
+             </div>
                 <div class="card-body">
                     <form method="POST" action="{{ route('user.store') }}">
                         @csrf
@@ -19,7 +22,7 @@
 
                                 @if ($errors->has('name'))
                                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('name') }}</strong>
+                                        {{ $errors->first('name') }}
                                     </span>
                                 @endif
                             </div>
@@ -40,7 +43,7 @@
 
                                 @if ($errors->has('type'))
                                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('type') }}</strong>
+                                        {{ $errors->first('type') }}
                                     </span>
                                 @endif
                             </div>
@@ -54,7 +57,7 @@
 
                                 @if ($errors->has('email'))
                                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('email') }}</strong>
+                                        {{ $errors->first('email') }}
                                     </span>
                                 @endif
                             </div>
@@ -68,7 +71,7 @@
 
                                 @if ($errors->has('password'))
                                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('password') }}</strong>
+                                        {{ $errors->first('password') }}
                                     </span>
                                 @endif
                             </div>
@@ -92,7 +95,7 @@
                     </form>
                 </div>
             </div>
-        </div>
+      <!--  </div>
     </div>
-</div>
+</div>-->
 @endsection

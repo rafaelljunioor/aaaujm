@@ -30,7 +30,7 @@ class CompeticaoController extends Controller
     {
         if(Auth::check()){
             if(Auth::user()->type == 3 || Auth::user()->type == 1){
-                $competicao = Competicao::paginate(10);
+                $competicao = Competicao::orderBy('nome')->paginate(10);
                 return view('competicao.index')->with('competicao', $competicao);
             }else{
                 return redirect()->route('login');

@@ -50,7 +50,7 @@
 			    <input type="text" 
 			    	   class="form-control {{$errors->has('nome') ? 'is-invalid' : ''}}" 
 			    	   id="inputnome" 
-			    	   placeholder="Insira Seu telefone" 
+			    	   placeholder="Insira o nome do atleta" 
 			    	   name="nome">
 
 			    @if($errors->has('nome'))

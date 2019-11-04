@@ -69,17 +69,34 @@
 
 			  <div class="form-group">
 			  	
-			    <label for="inputPreco">Preço Sugerido</label>
+			    <label for="inputPreco">Preço Socio</label>
 			    <input type="text" 
-			    	   class="form-control {{$errors->has('preco_sugerido') ? 'is-invalid' : ''}}" 
+			    	   class="form-control {{$errors->has('preco_socio') ? 'is-invalid' : ''}}" 
 			    	   id="inputPreco" 
 			    	   placeholder="Valor sugerido" 
-			    	   name="preco_sugerido" 
+			    	   name="preco_socio" 
 			    	   data-decimal=",">
 
-			    	@if($errors->has('preco_sugerido'))
+			    	@if($errors->has('preco_socio'))
 	  					<div class="invalid-feedback">
-	  						{{$errors->first('preco_sugerido')}}
+	  						{{$errors->first('preco_socio')}}
+	  					</div>
+	  				@endif
+			  </div>
+
+			   <div class="form-group">
+			  	
+			    <label for="inputPrecoNaoSocio">Preço Não Sócio</label>
+			    <input type="text" 
+			    	   class="form-control {{$errors->has('preco_nao_socio') ? 'is-invalid' : ''}}" 
+			    	   id="inputPrecoNaoSocio" 
+			    	   placeholder="Valor sugerido" 
+			    	   name="preco_nao_socio" 
+			    	   data-decimal=",">
+
+			    	@if($errors->has('preco_nao_socio'))
+	  					<div class="invalid-feedback">
+	  						{{$errors->first('preco_nao_socio')}}
 	  					</div>
 	  				@endif
 			  </div>
@@ -122,7 +139,8 @@
 	
 	
 	$(function(){
-      $('#inputPreco').mask('#0.00', {reverse: true});;
+      $('#inputPreco').mask('#0.00', {reverse: true});
+       $('#inputPrecoNaoSocio').mask('#0.00', {reverse: true});;
       })
 
 

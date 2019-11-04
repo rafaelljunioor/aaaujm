@@ -19,6 +19,7 @@ Route::get('relatorio-associados-em-debito', 'RelatorioController@gerarRelatorio
 Route::get('buscaAssociados', 'AssociadoController@buscaAssociados')->name('buscaAssociados');
 Route::delete('associado/excluir/{id}', 'AssociadoController@forceDelete')->name('associado.forceDelete');
 
+
 /**
 ROTAS COMPETICAO
 */
